@@ -2,22 +2,57 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"strconv"
 )
 
-func someFunc(num string) {
-	fmt.Println(num)
+func add(i int, j int) int { return i + j }
+
+func sub(i int, j int) int { return i - j }
+
+func mul(i int, j int) int { return i * j }
+
+func div(i int, j int) int { return i / j }
+
+// creating a map to associate a math operator with each function
+var opMap = map[string]func(int, int) int{
+	"+": add,
+	"-": sub,
+	"*": mul,
+	"/": div,
 }
 
 func main() {
-	//someFunc("1") // this function is being run synchronously
-	go someFunc("1") // this is known as the Go Routines this is asynchronously being called
-	go someFunc("2")
-	go someFunc("3")
-
-	// without this line the main function exists immediately before receiving the data from the functions
-	time.Sleep(time.Second * 2)
-
-
-	fmt.Println(("hi"))
+	expressions := [][]string{
+		[]string{"2", "+", "3"},
+		[]string{"2", "-", "3"},
+		[]string{"2", "*", "3"},
+		[]string{"2", "/", "3"},
+		[]string{"2", "%", "3"},
+		[]string{"two", "+", "three"},
+		[]string{"5"},
+	}
+	for _, expression := range expressions {
+		if len(expression) != 3 {
+			fmt.Println("invalid expression:", expression)
+			continue
+		}
+		p1, err := strconv.Atoi(expression[0])
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		op := expression[1]
+		opFunc, ok := opMap[op]
+		if !ok {
+			fmt.Println("unsupported operator:", op)
+			continue
+		}
+		p2, err := strconv.Atoi(expression[2])
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+		result := opFunc(p1, p2)
+		fmt.Println(result)
+	}
 }

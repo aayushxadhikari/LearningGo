@@ -9,7 +9,7 @@ func someFunc(num string) {
 	fmt.Println(num)
 }
 
-func main5() {
+func main() {
 	//someFunc("1") // this function is being run synchronously
 	go someFunc("1") // this is known as the Go Routines this is asynchronously being called
 	go someFunc("2")

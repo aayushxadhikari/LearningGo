@@ -1,0 +1,66 @@
+/* 
+Advantages of GO
+ 1. Code runs fast
+ 2. Garbage Collection
+ 3. Simpler Objects
+ 4. Concurrency is efficient */
+
+
+
+// Software Translation 
+// Machine Language: CPU instructions represented in binary
+// Assembly Language: CPU instructions with mnemonics
+
+// Garbage Collection: 
+// 1. Automatic memory management
+// - where and when should the memory be managed where and when it should be allocated and deallocated
+// 2. Manual memory management is hard
+// - Deallocate too early, false memory accesses
+// - Deallocate too late, wasted memory
+
+
+// Object- Oriented Programming 
+
+// - organize your code through encapsulation
+// - group together data and functions that are related
+// - user-defined type which is specific to an application
+
+// Objects in Go
+// -Go doesn't use the term class
+// - Go uses structs with associated methods
+// - Simplified implementation of classes => no inheritance, constructors, generics
+
+// Concurrency 
+// What concurrency solves is the problem that is arising in the parallelism
+// - When do tasks start/stop?
+// - What if one task needs data from another task?
+// - Do tasks conflict in memory?
+
+// So concurrency is the management of multiple tasks in same time.
+// (might not be executing at the same time though it might be executing in single-core processor)
+// Concurrent programming enable parallelism
+// - management of task execution
+// - communication between tasks
+// - synchronization between tasks
+
+// So what are the things Go is packing for concurrency?
+// - Go includes concurrency primitives also are easy and efficient to use.
+// - Goroutines represent concurrent tasks
+// - Channel are used to communicate between tasks
+// - Select enables tasks synchronization
+
+// WorkSpaces:
+// Three subdirectories:
+// -> src : contains source code files
+// -> pkg : contains packages (libraries)
+// -> bin : contains executables
+
+// There should always be a main package and the main package should always have the main() function
+// main() is where the code execution starts
+
+// fmt => Format package
+
+// Import 
+// import keyword is used to access other packages
+// Go standard library includes many packages
+

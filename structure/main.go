@@ -1,26 +1,31 @@
 package main
 
 import (
-	"io"
-	"os"
+	"fmt"
+	"net/http"
+	"strconv"
+
 )
 
-// func counter() func() int{
-// 	count := 0 // variable captured by closure
-// 	return func() int{
-// 		count ++ // modifies captured closure
-// 		return count
-// 	}
-// }
+func bmiCaculatorHandler(w http.ResponseWriter, r *http.Request){
+	heightStr := r.URL.Query().Get("height")
+	weightStr := r.URL.Query().Get("weight")
+
+	height, err1 := strconv.ParseFloat(heightStr, 64)
+	weight, err2 := strconv.ParseFloat(weightStr, 64)
+
+	if err1 != nil || err2 != nil || height == 0{
+		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		return
+	}
+
+	bmi := weight / ((height / 100) * (height/ 100))
+	fmt.Fprintf(w, "You BMI index is :%.2f\n", bmi)
+}
 
 func main(){
-	myString := ""
-	arguments := os.Args
-	if len(arguments) == 1 {
-	myString = "Please give me one argument!"
-	} else {
-	myString = arguments[1]
-	}
-	io.WriteString(os.Stdout, myString)
-	io.WriteString(os.Stdout, "\n")
+	http.HandleFunc("/bmi", bmiCaculatorHandler)
+
+	fmt.Println("Server is running on :8080.....")
+	http.ListenAndServe(":8080", nil)
 }
